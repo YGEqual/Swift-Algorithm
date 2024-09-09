@@ -12,12 +12,27 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nums = [1,0,1,0,1,0,1,1]
+        var nums = [1, 2]
         print("leetcode before: nums = \(nums)")
-        let k = self.majorityElement(nums)
-        print("leetcode after: nums = \(nums) k = \(k)")
+        self.rotate(&nums, 2)
+        print("leetcode after: nums = \(nums)")
     }
 
+    /// 189. 轮转数组
+    func rotate(_ nums: inout [Int], _ k: Int) {
+        if nums.count < 2 {
+            return
+        }
+        
+        var i = nums.count - 1
+        let boundary = nums.count - k - 1
+        while i < nums.count, i > boundary {
+            let lastElement = nums.removeLast()
+            nums.insert(lastElement, at: 0)
+            i -= 1
+        }
+    }
+    
     /// 169. 多数元素 - 摩尔投票算法实现
     func majorityElement(_ nums: [Int]) -> Int {
         //你可以假设数组是非空的，并且给定的数组总是存在多数元素。
